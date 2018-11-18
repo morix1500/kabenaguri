@@ -1,5 +1,8 @@
 ﻿const hibiImg = chrome.extension.getURL('/img/hibi.png')
 const panchiImg = chrome.extension.getURL('/img/panchi.png')
+const panchi1Audio = chrome.extension.getURL('/audio/panchi1.mp3')
+const panchi2Audio = chrome.extension.getURL('/audio/panchi2.mp3')
+const panchi3Audio = chrome.extension.getURL('/audio/panchi3.mp3')
 
 $(function () {
   let style = '<style type="text/css">'
@@ -79,6 +82,13 @@ function panchi(index, x, y, scale) {
   let panchiSize = 200 * scale;
   let hibiSize   = 300 * scale;
 
+  if (scale > 5) {
+    new Audio(panchi3Audio).play();
+  } else if (scale > 3) {
+    new Audio(panchi2Audio).play();
+  } else {
+    new Audio(panchi1Audio).play();
+  }
   let panchi = $('<img id="panchi'+ index +'" src="'+ panchiImg +'" />');
   $("#naguri").append(panchi);
   $("#panchi" + index).css("position", "absolute");

@@ -21,7 +21,10 @@
   },
   "web_accessible_resources": [
     "/img/hibi.png",
-    "/img/panchi.png"
+    "/img/panchi.png",
+    "/audio/panchi1.mp3",
+    "/audio/panchi2.mp3",
+    "/audio/panchi3.mp3"
   ],
   "permissions": [
     "tabs",
