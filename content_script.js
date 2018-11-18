@@ -28,9 +28,11 @@ $(function () {
 
   let overlay = $('<div id="naguri"></div>');
   $("body").prepend(overlay);
-  $("#naguri").css("position", "relative");
-  $("#naguri").css("top", "0");
-  $("#naguri").css("left", "0");
+  $("#naguri").css({
+    "position": "relative",
+    "top": "0",
+    "left": "0"
+  });
 
   let index = 1;
   let scale = 10;
@@ -83,32 +85,36 @@ function panchi(index, x, y, scale) {
   let panchiSize = 200 * scale / 10;
   let hibiSize   = 300 * scale / 10;
 
-  if (scale > 50) {
+  if (scale >= 50) {
     new Audio(panchi3Audio).play();
-  } else if (scale > 30) {
+  } else if (scale >= 30) {
     new Audio(panchi2Audio).play();
   } else {
     new Audio(panchi1Audio).play();
   }
   let panchi = $('<img id="panchi'+ index +'" src="'+ panchiImg +'" />');
   $("#naguri").append(panchi);
-  $("#panchi" + index).css("position", "absolute");
-  $("#panchi" + index).css("width", panchiSize + "px");
-  $("#panchi" + index).css("z-index", "1000");
-  $("#panchi" + index).css("top", y - (panchiSize / 2));
-  $("#panchi" + index).css("left", x - (panchiSize / 2));
-  $("#panchi" + index).css("-webkit-animation", "scaleout 0.5s infinite ease-in-out");
-  $("#panchi" + index).css("animation", "scaleout 0.5s infinite ease-in-out");
+  $("#panchi" + index).css({
+    "position": "absolute",
+    "width": panchiSize + "px",
+    "z-index": "1000",
+    "top": y - (panchiSize / 2),
+    "left": x - (panchiSize / 2),
+    "-webkit-animation": "scaleout 0.5s infinite ease-in-out",
+    "animation": "scaleout 0.5s infinite ease-in-out"
+  });
 
   setTimeout(function() {
     $("#panchi" + index).remove();
 
     let hibi = $('<img id="hibi'+ index +'" src="'+ hibiImg +'" />');
     $("#naguri").append(hibi);
-    $("#hibi" + index).css("position", "absolute");
-    $("#hibi" + index).css("width", hibiSize + "px");
-    $("#hibi" + index).css("z-index", "1000");
-    $("#hibi" + index).css("top", y - (hibiSize / 2));
-    $("#hibi" + index).css("left", x - (hibiSize / 2));
+    $("#hibi" + index).css({
+      "position": "absolute",
+      "width": hibiSize + "px",
+      "z-index": "1000",
+      "top": y - (hibiSize / 2),
+      "left": x - (hibiSize / 2)
+    });
   }, 500);
 }
