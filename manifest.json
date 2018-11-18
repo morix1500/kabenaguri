@@ -1,0 +1,32 @@
+{
+  "name": "かべなぐり",
+  "description": "マウスをクリックすると壁を殴れます。殴りまくりましょう！",
+  "version": "1.0",
+  "manifest_version": 2,
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["jquery-3.3.1.min.js", "content_script.js"]
+  }],
+  "icons": {
+    "16":  "img/icon-16x16.png",
+    "48":  "img/icon-48x48.png",
+    "128": "img/icon-128x128.png"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_action": {
+    "default_icon": "img/on.png",
+    "default_title": ""
+  },
+  "web_accessible_resources": [
+    "/img/hibi.png",
+    "/img/panchi.png",
+    "/img/on.png",
+    "/img/off.png"
+  ],
+  "permissions": [
+    "tabs",
+    "background"
+  ]
+}
