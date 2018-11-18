@@ -32,14 +32,24 @@ $(function () {
   let index = 1;
   let scale = 1;
   let intervalId;
+
   $("body").on("mousedown", function(e) {
-    intervalId = setInterval(function() {
-      scale += 0.1;
-    }, 100);
+    chrome.runtime.sendMessage({method: 'getState'}, function (response) {
+      if (response.data) {
+        if (response.data === "true") {
+          addPowerGauge()
+          intervalId = setInterval(function() {
+            scale += 0.1;
+            $("#naguri-gauge .naguri-power").html(Math.floor(scale * 100) + "%");
+          }, 100);
+        }
+      }
+    });
   }).on("mouseup", function(e) {
     chrome.runtime.sendMessage({method: 'getState'}, function (response) {
       if (response.data) {
         if (response.data === "true") {
+          $("#naguri-gauge").remove()
           panchi(index, e.pageX, e.pageY, scale)
           index += 1;
           scale = 1;
@@ -49,6 +59,21 @@ $(function () {
     clearInterval(intervalId);
   });
 });
+
+function addPowerGauge() {
+  let gauge = $('<div id="naguri-gauge">Power: <span class="naguri-power">100%</span></div>');
+  $("body").append(gauge);
+  $("#naguri-gauge").css({
+    "position": "fixed",
+    "left": "0",
+    "bottom": "0",
+    "padding": "10px",
+    "font-size": "2rem",
+    "color": "#fff",
+    "z-index": "1001",
+    "background-color": "rgb(0,0,0,0.5)"
+  });
+}
 
 function panchi(index, x, y, scale) {
   let panchiSize = 200 * scale;
