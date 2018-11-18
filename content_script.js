@@ -33,7 +33,7 @@ $(function () {
   $("#naguri").css("left", "0");
 
   let index = 1;
-  let scale = 1;
+  let scale = 10;
   let intervalId;
 
   $("body").on("mousedown", function(e) {
@@ -42,24 +42,25 @@ $(function () {
         if (response.data === "true") {
           addPowerGauge()
           intervalId = setInterval(function() {
-            scale += 0.1;
-            $("#naguri-gauge .naguri-power").html(Math.floor(scale * 100) + "%");
+            scale += 1;
+            console.log(scale);
+            $("#naguri-gauge .naguri-power").html(Math.floor(scale * 10) + "%");
           }, 100);
         }
       }
     });
   }).on("mouseup", function(e) {
+    clearInterval(intervalId);
     chrome.runtime.sendMessage({method: 'getState'}, function (response) {
       if (response.data) {
         if (response.data === "true") {
           $("#naguri-gauge").remove()
           panchi(index, e.pageX, e.pageY, scale)
           index += 1;
-          scale = 1;
+          scale = 10;
         }
       }
     });
-    clearInterval(intervalId);
   });
 });
 
@@ -79,12 +80,12 @@ function addPowerGauge() {
 }
 
 function panchi(index, x, y, scale) {
-  let panchiSize = 200 * scale;
-  let hibiSize   = 300 * scale;
+  let panchiSize = 200 * scale / 10;
+  let hibiSize   = 300 * scale / 10;
 
-  if (scale > 5) {
+  if (scale > 50) {
     new Audio(panchi3Audio).play();
-  } else if (scale > 3) {
+  } else if (scale > 30) {
     new Audio(panchi2Audio).play();
   } else {
     new Audio(panchi1Audio).play();
