@@ -21,9 +21,7 @@
   },
   "web_accessible_resources": [
     "/img/hibi.png",
-    "/img/panchi.png",
-    "/img/on.png",
-    "/img/off.png"
+    "/img/panchi.png"
   ],
   "permissions": [
     "tabs",
